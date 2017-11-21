@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+<repo quality="testing" status="official">
+	<name>wine</name>
+	<description>All supported Wine ebuilds from the Gentoo Wine Project</description>
+	<homepage>https://github.com/NP-Hardass/wine-overlay</homepage>
+	<owner type="project">
+		<email>wine@gentoo.org</email>
+		<name>Gentoo Wine Project</name>
+	</owner>
+	<source type="git">https://anongit.gentoo.org/git/repo/proj/wine.git</source>
+	<source type="git">git://anongit.gentoo.org/repo/proj/wine.git</source>
+</repo>
