@@ -44,7 +44,10 @@ RDEPEND="app-arch/cabextract
 # Test targets include syntax checks only, not the "heavy duty" tests
 # that would require a lot of disk space, as well as network access.
 
-# Uses non-standard "Wine" category, which is provided by app-emulation/wine; #451552
+# This uses a non-standard "Wine" category, which is provided by
+# '/etc/xdg/menus/applications-merged/wine.menu' from the
+# 'app-emulation/wine-desktop-common' package.
+# https://bugs.gentoo.org/451552
 QA_DESKTOP_FILE="usr/share/applications/winetricks.desktop"
 
 src_unpack() {
