@@ -15,15 +15,11 @@ How to Install
 
 Copy wine.conf to /etc/portage/repos/
 
-    wget https://gitweb.gentoo.org/repo/proj/wine.git/plain/wine.conf -O /etc/portage/repos.conf/wine.conf
+    wget https://dev.gentoo.org/~np-hardass/proj/wine/wine.conf -O /etc/portage/repos.conf/wine.conf
 
 ### Layman
 
     layman -a wine
-
-or
-
-    layman -o https://gitweb.gentoo.org/repo/proj/wine.git/plain/overlay.xml -f -a wine
 
 ### eselect-repository
 
