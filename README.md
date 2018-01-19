@@ -11,13 +11,13 @@ Support all Wine ebuilds without bogging down the main Gentoo repository with al
 How to Install
 --------------
 
-### Without Layman
+### repos.conf
 
 Copy wine.conf to /etc/portage/repos/
 
     wget https://gitweb.gentoo.org/repo/proj/wine.git/plain/wine.conf -O /etc/portage/repos.conf/wine.conf
 
-### With Layman
+### Layman
 
     layman -a wine
 
@@ -25,6 +25,9 @@ or
 
     layman -o https://gitweb.gentoo.org/repo/proj/wine.git/plain/overlay.xml -f -a wine
 
+### eselect-repository
+
+    eselect repository enable wine
 
 Resources
 ---------
