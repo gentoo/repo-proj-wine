@@ -27,7 +27,12 @@ LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="gtk kde rar test"
 
-DEPEND=""
+DEPEND="test? (
+		dev-python/bashate
+		dev-util/checkbashisms
+		dev-util/shellcheck
+	)"
+
 RDEPEND="app-arch/cabextract
 	app-arch/p7zip
 	app-arch/unzip
@@ -36,10 +41,7 @@ RDEPEND="app-arch/cabextract
 	x11-misc/xdg-utils
 	gtk? ( gnome-extra/zenity )
 	kde? ( kde-apps/kdialog )
-	rar? ( app-arch/unrar )
-	test? ( dev-python/bashate
-		dev-util/checkbashisms
-		dev-util/shellcheck )"
+	rar? ( app-arch/unrar )"
 
 # Test targets include syntax checks only, not the "heavy duty" tests
 # that would require a lot of disk space, as well as network access.
