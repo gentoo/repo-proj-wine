@@ -24,7 +24,7 @@ else
 fi
 S="${WORKDIR}/${MY_P}"
 
-GWP_V="20170830"
+GWP_V="20180119"
 PATCHDIR="${WORKDIR}/gentoo-wine-patches"
 
 DESCRIPTION="Free implementation of Windows(tm) on Unix, without external patchsets"
@@ -328,6 +328,31 @@ src_prepare() {
 	cp "${PATCHDIR}/files/oic_winlogo.ico" dlls/user32/resources/ || die
 
 	l10n_get_locales > po/LINGUAS || die # otherwise wine doesn't respect LINGUAS
+
+	# Fix manpage generation for locales #469418 and abi_x86_64 #617864
+	# Depends on wine-2.0-prevent-build-of-localized-manpages.patch"
+	# Duplicate manpages input for wine64
+	local man
+	for man in loader/*.man.in; do
+		cp ${man} ${man/wine/wine64} || die
+	done
+	# Add in proper manpages to Makefile
+	local search_text="wine.man.in"
+	if use abi_x86_64; then
+		sed -i "/${search_text}/i \
+			"$'\\\t'"wine64.man.in "$'\\\\' loader/Makefile.in || die
+	fi
+	local l
+	for l in de fr pl; do
+		if has ${l} ${LINGUAS-${l}}; then
+			sed -i "/${search_text}/i \
+				"$'\\\t'"wine.${l}.UTF-8.man.in "$'\\\\' loader/Makefile.in || die
+			if use abi_x86_64; then
+				sed -i "/${search_text}/i \
+					"$'\\\t'"wine64.${l}.UTF-8.man.in "$'\\\\' loader/Makefile.in || die
+			fi
+		fi
+	done
 }
 
 src_configure() {
@@ -470,14 +495,6 @@ multilib_src_install_all() {
 	for b in "${D%/}${MY_PREFIX}"/bin/*; do
 		make_wrapper "${b##*/}-${WINE_VARIANT}" "${MY_PREFIX}/bin/${b##*/}"
 	done
-
-	# respect LINGUAS when installing man pages, #469418
-	local l
-	for l in de fr pl; do
-		has ${l} ${LINGUAS-${l}} || rm -rf "${D%/}${MY_MANDIR}"/${l}*
-	done
-
-	eval "${glob_state}"
 }
 
 pkg_postinst() {
