@@ -37,6 +37,7 @@ This variant of the Wine packaging does not include external patchsets
 		http://wiki.winehq.org/NtlmAuthSetupGuide and
 		http://wiki.winehq.org/NtlmSigningAndSealing</flag>
 		<flag name="udev">Use <pkg>virtual/libudev</pkg> to provide plug and play support</flag>
+		<flag name="vulkan">Enable Vulkan drivers</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">wine-compholio/wine-staging</remote-id>
