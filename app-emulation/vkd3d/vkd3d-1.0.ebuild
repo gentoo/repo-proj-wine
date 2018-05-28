@@ -15,7 +15,9 @@ fi
 
 IUSE="spirv-tools"
 RDEPEND="spirv-tools? ( dev-util/spirv-tools:=[${MULTILIB_USEDEP}] )
-		 x11-libs/xcb-util-keysyms:=[${MULTILIB_USEDEP}]"
+		dev-util/spirv-headers
+		media-libs/vulkan-loader:=[${MULTILIB_USEDEP}]
+		x11-libs/xcb-util-keysyms:=[${MULTILIB_USEDEP}]"
 
 DEPEND="${RDEPEND}"
 
