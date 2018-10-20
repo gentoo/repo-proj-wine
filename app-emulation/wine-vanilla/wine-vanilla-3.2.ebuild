@@ -238,7 +238,7 @@ wine_env_vcs_vars() {
 	eval pn_live_val='$'${pn_live_val}
 	if [[ ! -z ${EGIT_COMMIT} ]]; then
 		eerror "Commits must now be specified using the environmental variables"
-		eerror "WINE_COMMIT"
+		eerror "EGIT_OVERRIDE_COMMIT_WINE"
 		eerror
 		return 1
 	fi
@@ -277,7 +277,7 @@ pkg_setup() {
 
 src_unpack() {
 	if [[ ${PV} == "9999" ]] ; then
-		EGIT_CHECKOUT_DIR="${S}" EGIT_COMMIT="${WINE_COMMIT}" git-r3_src_unpack
+		EGIT_CHECKOUT_DIR="${S}" git-r3_src_unpack
 	fi
 
 	default
