@@ -6,7 +6,7 @@ EAPI=6
 PLOCALES="ar bg ca cs da de el en en_US eo es fa fi fr he hi hr hu it ja ko lt ml nb_NO nl or pa pl pt_BR pt_PT rm ro ru sk sl sr_RS@cyrillic sr_RS@latin sv te th tr uk wa zh_CN zh_TW"
 PLOCALE_BACKUP="en"
 
-inherit autotools eutils fdo-mime flag-o-matic gnome2-utils l10n multilib multilib-minimal pax-utils toolchain-funcs virtualx versionator
+inherit autotools eapi7-ver eutils fdo-mime flag-o-matic gnome2-utils l10n multilib multilib-minimal pax-utils toolchain-funcs virtualx
 
 if [[ ${PV} == "9999" ]] ; then
 	EGIT_REPO_URI="git://source.winehq.org/git/wine.git http://source.winehq.org/git/wine.git"
@@ -15,7 +15,7 @@ if [[ ${PV} == "9999" ]] ; then
 	SRC_URI=""
 	#KEYWORDS=""
 else
-	MAJOR_V=$(get_version_component_range 1)
+	MAJOR_V=$(ver_cut 1)
 	SRC_URI="https://dl.winehq.org/wine/source/${MAJOR_V}.x/${P}.tar.xz"
 	KEYWORDS="-* ~amd64 ~x86 ~x86-fbsd"
 fi
