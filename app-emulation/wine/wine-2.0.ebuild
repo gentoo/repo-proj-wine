@@ -248,7 +248,7 @@ pkg_setup() {
 
 src_unpack() {
 	if [[ ${PV} == "9999" ]] ; then
-		EGIT_COMMIT="${WINE_COMMIT}" git-r3_src_unpack
+		git-r3_src_unpack
 	fi
 
 	default
