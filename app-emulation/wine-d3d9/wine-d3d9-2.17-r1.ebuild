@@ -257,14 +257,17 @@ wine_env_vcs_vars() {
 		if use d3d9; then
 			eerror "Because of the multi-repo nature of ${MY_PN}, ${pn_live_var}"
 			eerror "cannot be used to set the commit. Instead, you may use the"
-			eerror "environmental variables WINE_COMMIT, and D3D9_COMMIT."
+			eerror "environment variables:"
+			eerror "  EGIT_OVERRIDE_COMMIT_WINE"
+			eerror "  EGIT_OVERRIDE_COMMIT_SARNEX_WINE_D3D9_PATCHES"
 			eerror
 			return 1
 		fi
 	fi
 	if [[ ! -z ${EGIT_COMMIT} ]]; then
-		eerror "Commits must now be specified using the environmental variables"
-		eerror "WINE_COMMIT, and D3D9_COMMIT"
+		eerror "Commits must now be specified using the environment variables:"
+		eerror "  EGIT_OVERRIDE_COMMIT_WINE"
+		eerror "  EGIT_OVERRIDE_COMMIT_SARNEX_WINE_D3D9_PATCHES"
 		eerror
 		return 1
 	fi
@@ -303,10 +306,9 @@ pkg_setup() {
 
 src_unpack() {
 	if [[ ${PV} == "9999" ]] ; then
-		EGIT_CHECKOUT_DIR="${S}" EGIT_COMMIT="${WINE_COMMIT}" git-r3_src_unpack
+		EGIT_CHECKOUT_DIR="${S}" git-r3_src_unpack
 		if use d3d9; then
-			git-r3_fetch "${D3D9_EGIT_REPO_URI}" "${D3D9_COMMIT}"
-			git-r3_checkout "${D3D9_EGIT_REPO_URI}" "${D3D9_DIR}"
+			EGIT_CHECKOUT_DIR="${D3D9_DIR}" EGIT_REPO_URI="${D3D9_EGIT_REPO_URI}" git-r3_src_unpack
 		fi
 	fi
 
