@@ -264,14 +264,17 @@ wine_env_vcs_vars() {
 		if use staging; then
 			eerror "Because of the multi-repo nature of ${MY_PN}, ${pn_live_var}"
 			eerror "cannot be used to set the commit. Instead, you may use the"
-			eerror "environmental variables WINE_COMMIT, and STAGING_COMMIT."
+			eerror "environment variables:"
+			eerror "  EGIT_OVERRIDE_COMMIT_WINE"
+			eerror "  EGIT_OVERRIDE_COMMIT_WINE_COMPHOLIO_WINE_STAGING"
 			eerror
 			return 1
 		fi
 	fi
 	if [[ ! -z ${EGIT_COMMIT} ]]; then
-		eerror "Commits must now be specified using the environmental variables"
-		eerror "WINE_COMMIT, STAGING_COMMIT, and D3D9_COMMIT"
+		eerror "Commits must now be specified using the environment variables:"
+		eerror "  EGIT_OVERRIDE_COMMIT_WINE"
+		eerror "  EGIT_OVERRIDE_COMMIT_WINE_COMPHOLIO_WINE_STAGING"
 		eerror
 		return 1
 	fi
@@ -310,19 +313,18 @@ pkg_setup() {
 
 src_unpack() {
 	if [[ ${PV} == "9999" ]] ; then
-		EGIT_CHECKOUT_DIR="${S}" EGIT_COMMIT="${WINE_COMMIT}" git-r3_src_unpack
+		EGIT_CHECKOUT_DIR="${S}" git-r3_src_unpack
 		if use staging; then
 			local CURRENT_WINE_COMMIT=${EGIT_VERSION}
 
-			git-r3_fetch "${STAGING_EGIT_REPO_URI}" "${STAGING_COMMIT}"
-			git-r3_checkout "${STAGING_EGIT_REPO_URI}" "${STAGING_DIR}"
+			EGIT_CHECKOUT_DIR="${STAGING_DIR}" EGIT_REPO_URI="${STAGING_EGIT_REPO_URI}" git-r3_src_unpack
 
 			local COMPAT_WINE_COMMIT=$("${STAGING_DIR}/patches/patchinstall.sh" --upstream-commit) || die
 
 			if [[ "${CURRENT_WINE_COMMIT}" != "${COMPAT_WINE_COMMIT}" ]]; then
 				einfo "The current Staging patchset is not guaranteed to apply on this WINE commit."
 				einfo "If src_prepare fails, try emerging with the env var WINE_COMMIT."
-				einfo "Example: WINE_COMMIT=${COMPAT_WINE_COMMIT} emerge -1 wine"
+				einfo "Example: EGIT_OVERRIDE_COMMIT_WINE=${COMPAT_WINE_COMMIT} emerge -1 wine"
 			fi
 		fi
 	fi
