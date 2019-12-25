@@ -47,6 +47,7 @@ RDEPEND="${DEPEND}
 	kde? ( kde-apps/kdialog )
 	rar? ( app-arch/unrar )
 "
+RESTRICT="!test? ( test )"
 
 # Test targets include syntax checks only, not the "heavy duty" tests
 # that would require a lot of disk space, as well as network access.
