@@ -27,6 +27,7 @@ HOMEPAGE="https://github.com/Winetricks/winetricks https://wiki.winehq.org/Winet
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="gtk kde rar test"
+RESTRICT="!test? ( test )"
 
 BDEPEND="
 	test? (
@@ -47,7 +48,6 @@ RDEPEND="${DEPEND}
 	kde? ( kde-apps/kdialog )
 	rar? ( app-arch/unrar )
 "
-RESTRICT="!test? ( test )"
 
 # Test targets include syntax checks only, not the "heavy duty" tests
 # that would require a lot of disk space, as well as network access.
