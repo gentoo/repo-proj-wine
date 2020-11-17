@@ -24,6 +24,7 @@ This variant of the Wine packaging does not include external patchsets
 		<flag name="gecko">Add support for the Gecko engine when using iexplore</flag>
 		<flag name="gssapi">Use GSSAPI (Kerberos SSP support)</flag>
 		<flag name="gstreamer">Use <pkg>media-libs/gstreamer</pkg> to provide DirectShow functionality;</flag>
+		<flag name="mingw">Build PE files using a MinGW cross compiler</flag>
 		<flag name="mono">Add support for .NET using Wine's Mono add-on</flag>
 		<flag name="netapi">Use libnetapi from <pkg>net-fs/samba</pkg> to support Windows networks in netapi32.dll</flag>
 		<flag name="opencl">Enable OpenCL support</flag>
