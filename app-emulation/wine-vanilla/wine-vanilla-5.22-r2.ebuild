@@ -505,9 +505,17 @@ multilib_src_install_all() {
 	if ! use X && ! use ncurses; then
 		rm "${D%/}${MY_PREFIX}"/bin/wineconsole* || die
 		rm "${D%/}${MY_MANDIR}"/man1/wineconsole* || die
-		rm_wineconsole() {
-			rm "${D%/}${MY_PREFIX}/$(get_libdir)"/wine/{,fakedlls/}wineconsole.exe* || die
-		}
+
+		if ! use mingw; then
+			rm_wineconsole() {
+				rm "${D%/}/usr/$(get_libdir)/wine-${WINE_VARIANT}"/wine/{,fakedlls/}wineconsole.exe* || die
+			}
+		else
+			rm_wineconsole() {
+				rm "${D%/}/usr/$(get_libdir)/wine-${WINE_VARIANT}"/wine/wineconsole.exe* || die
+			}
+		fi
+
 		multilib_foreach_abi rm_wineconsole
 	fi
 
