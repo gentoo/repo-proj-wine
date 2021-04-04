@@ -16,11 +16,10 @@ if [[ ${PV} == "9999" ]] ; then
 	EGIT_BRANCH="master"
 	inherit git-r3
 	SRC_URI=""
-	#KEYWORDS=""
 else
 	MAJOR_V=$(ver_cut 1)
 	SRC_URI="https://dl.winehq.org/wine/source/${MAJOR_V}.0/${MY_P}.tar.xz"
-	KEYWORDS="-* ~amd64 ~x86"
+	KEYWORDS="-* amd64 x86"
 fi
 S="${WORKDIR}/${MY_P}"
 
@@ -481,7 +480,7 @@ multilib_src_test() {
 		fi
 
 		WINEPREFIX="${T}/.wine-${ABI}" \
-		Xemake test
+		virtx emake test
 	fi
 }
 
