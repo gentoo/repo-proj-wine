@@ -460,7 +460,7 @@ multilib_src_install_all() {
 	l10n_for_each_locale_do add_locale_docs
 
 	einstalldocs
-	prune_libtool_files --all
+	find "${ED}" -name *.la -delete || die
 
 	if ! use perl ; then # winedump calls function_grep.pl, and winemaker is a perl script
 		rm "${D%/}${MY_PREFIX}"/bin/{wine{dump,maker},function_grep.pl} \
