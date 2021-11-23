@@ -132,7 +132,7 @@ usr/share/applications/wine-uninstaller.desktop
 usr/share/applications/wine-winecfg.desktop"
 
 PATCHES=(
-        "${PATCHDIR}/patches/${MY_PN}-6.22-winegcc.patch" #260726
+	"${PATCHDIR}/patches/${MY_PN}-6.22-winegcc.patch" #260726
 	"${PATCHDIR}/patches/${MY_PN}-4.7-multilib-portage.patch" #395615
 	"${PATCHDIR}/patches/${MY_PN}-2.0-multislot-apploader.patch" #310611
 )
