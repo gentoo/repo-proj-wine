@@ -62,12 +62,11 @@ REQUIRED_USE="|| ( abi_x86_32 abi_x86_64 )
 RESTRICT="test"
 
 BDEPEND="mingw? ( !!>=cross-i686-w64-mingw32/binutils-2.38 !!>=cross-x86_64-w64-mingw32/binutils-2.38 )
-         sys-devel/flex
-         virtual/yacc
-         virtual/pkgconfig"
+	sys-devel/flex
+	virtual/yacc
+	virtual/pkgconfig"
 
 COMMON_DEPEND="
-	${BDEPEND}
 	X? (
 		x11-libs/libXcursor[${MULTILIB_USEDEP}]
 		x11-libs/libXext[${MULTILIB_USEDEP}]
@@ -137,6 +136,7 @@ RDEPEND="${COMMON_DEPEND}
 
 # tools/make_requests requires perl
 DEPEND="${COMMON_DEPEND}
+	${BDEPEND}
 	>=sys-kernel/linux-headers-2.6
 	X? ( x11-base/xorg-proto )
 	staging? (
