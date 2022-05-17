@@ -166,52 +166,9 @@ fi
 wine_compiler_check() {
 	[[ ${MERGE_TYPE} = "binary" ]] && return 0
 
-	# GCC-specific bugs
-	if tc-is-gcc; then
-		# bug #549768
-		if use abi_x86_64 && [[ $(gcc-major-version) = 5 && $(gcc-minor-version) -le 2 ]]; then
-			ebegin "Checking for gcc-5 ms_abi compiler bug"
-			$(tc-getCC) -O2 "${PATCHDIR}/files/pr66838.c" -o "${T}"/pr66838 || die
-			# Run in subshell to prevent "Aborted" message
-			( "${T}"/pr66838 || false ) >/dev/null 2>&1
-			if ! eend $?; then
-				eerror "64-bit wine cannot be built with gcc-5.1 or initial patchset of 5.2.0"
-				eerror "due to compiler bugs; please re-emerge the latest gcc-5.2.x ebuild,"
-				eerror "or use gcc-config to select a different compiler version."
-				eerror "See https://bugs.gentoo.org/549768"
-				eerror
-				return 1
-			fi
-		fi
-		# bug #574044
-		if use abi_x86_64 && [[ $(gcc-major-version) = 5 && $(gcc-minor-version) = 3 ]]; then
-			ebegin "Checking for gcc-5-3 stack realignment compiler bug"
-			# Compile in subshell to prevent "Aborted" message
-			( $(tc-getCC) -O2 -mincoming-stack-boundary=3 "${PATCHDIR}/files/pr69140.c" -o "${T}"/pr69140 ) >/dev/null 2>&1
-			if ! eend $?; then
-				eerror "Wine cannot be built with this version of gcc-5.3"
-				eerror "due to compiler bugs; please re-emerge the latest gcc-5.3.x ebuild,"
-				eerror "or use gcc-config to select a different compiler version."
-				eerror "See https://bugs.gentoo.org/574044"
-				eerror
-				return 1
-			fi
-		fi
-	fi
-
 	# Ensure compiler support
-	if use abi_x86_64; then
-		ebegin "Checking for 64-bit compiler with builtin_ms_va_list support"
-		# Compile in subshell to prevent "Aborted" message
-		( $(tc-getCC) -O2 "${PATCHDIR}/files/builtin_ms_va_list.c" -o "${T}"/builtin_ms_va_list >/dev/null 2>&1)
-		if ! eend $?; then
-			eerror "This version of $(tc-getCC) does not support builtin_ms_va_list, can't enable 64-bit wine"
-			eerror
-			eerror "You need gcc-4.4+ or clang 3.8+ to build 64-bit wine"
-			eerror
-			return 1
-		fi
-	fi
+	# (No checks here as of 2022)
+	return 0
 }
 
 wine_build_environment_check() {
