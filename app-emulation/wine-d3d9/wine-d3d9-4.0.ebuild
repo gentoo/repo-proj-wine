@@ -45,7 +45,7 @@ fi
 
 LICENSE="LGPL-2.1"
 SLOT="${PV}"
-IUSE="+abi_x86_32 +abi_x86_64 +alsa capi cups custom-cflags d3d9 dos +fontconfig +gecko gphoto2 gsm gssapi gstreamer +jpeg kerberos +lcms ldap +mono mp3 ncurses netapi nls odbc openal opencl +opengl osmesa oss +perl pcap +png prelink pulseaudio +realtime +run-exes samba scanner sdl selinux +ssl test +threads +truetype udev +udisks v4l vkd3d vulkan +X +xcomposite xinerama +xml"
+IUSE="+abi_x86_32 +abi_x86_64 +alsa capi cups custom-cflags d3d9 dos +fontconfig +gecko gphoto2 gsm gssapi gstreamer +jpeg kerberos +lcms ldap +mono mp3 ncurses netapi nls odbc openal opencl +opengl osmesa oss +perl pcap +png pulseaudio +realtime +run-exes samba scanner sdl selinux +ssl test +threads +truetype udev +udisks v4l vkd3d vulkan +X +xcomposite xinerama +xml"
 REQUIRED_USE="|| ( abi_x86_32 abi_x86_64 )
 	X? ( truetype )
 	elibc_glibc? ( threads )
@@ -143,7 +143,6 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	virtual/yacc
 	X? ( x11-base/xorg-proto )
-	prelink? ( sys-devel/prelink )
 	xinerama? ( x11-base/xorg-proto )"
 
 # These use a non-standard "Wine" category, which is provided by
