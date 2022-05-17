@@ -48,7 +48,7 @@ fi
 
 LICENSE="LGPL-2.1"
 SLOT="${PV}"
-IUSE="+abi_x86_32 +abi_x86_64 +alsa capi cups custom-cflags d3d9 dos +fontconfig +gecko gphoto2 gsm gssapi gstreamer +jpeg kerberos +lcms ldap +mono mp3 ncurses netapi nls odbc openal opencl +opengl osmesa oss +perl pcap pipelight +png prelink pulseaudio +realtime +run-exes s3tc samba scanner sdl selinux +ssl staging test themes +threads +truetype udev +udisks v4l vaapi vulkan +X +xcomposite xinerama +xml"
+IUSE="+abi_x86_32 +abi_x86_64 +alsa capi cups custom-cflags d3d9 dos +fontconfig +gecko gphoto2 gsm gssapi gstreamer +jpeg kerberos +lcms ldap +mono mp3 ncurses netapi nls odbc openal opencl +opengl osmesa oss +perl pcap pipelight +png pulseaudio +realtime +run-exes s3tc samba scanner sdl selinux +ssl staging test themes +threads +truetype udev +udisks v4l vaapi vulkan +X +xcomposite xinerama +xml"
 REQUIRED_USE="|| ( abi_x86_32 abi_x86_64 )
 	X? ( truetype )
 	elibc_glibc? ( threads )
@@ -156,7 +156,6 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	virtual/yacc
 	X? ( x11-base/xorg-proto )
-	prelink? ( sys-devel/prelink )
 	staging? (
 		dev-lang/perl
 		dev-perl/XML-Simple
