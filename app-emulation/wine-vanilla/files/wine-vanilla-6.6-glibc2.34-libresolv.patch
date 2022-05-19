@@ -1,0 +1,18 @@
+https://bugs.winehq.org/show_bug.cgi?id=51635
+
+https://source.winehq.org/git/wine.git/commit/a3bbf513
+From: Fabian Maurer <dark.shadow4@web.de>
+Date: Thu, 19 Aug 2021 00:53:56 +0200
+Subject: [PATCH] configure: Improve resolv lib test for glibc 2.34.
+
+res_init and res_query don't need lresolv on glibc 2.34.
+Added another test for ns_initparse and friends.
+--- a/configure.ac
++++ b/configure.ac
+@@ -1503,5 +1503,5 @@
+ #include <netinet/in.h>
+ #endif
+-#include <resolv.h>]],[[if (!(_res.options & RES_INIT)) res_init(); res_query("foo",ns_c_in,0,0,0)]])],
++#include <resolv.h>]],[[if (!(_res.options & RES_INIT)) res_init(); res_query("foo",ns_c_in,0,0,0); ns_initparse(0,0,0)]])],
+            [ac_cv_have_resolv=${lib:-"none required"}],[ac_cv_have_resolv="not found"])
+          test "x$ac_cv_have_resolv" = "xnot found" || break
