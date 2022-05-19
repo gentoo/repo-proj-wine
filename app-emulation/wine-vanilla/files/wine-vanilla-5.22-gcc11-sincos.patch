@@ -1,0 +1,87 @@
+https://bugs.gentoo.org/787665
+
+https://source.winehq.org/git/wine.git/commit/f0131276
+From: Jacek Caban <jacek@codeweavers.com>
+Date: Tue, 18 May 2021 18:08:43 +0200
+Subject: [PATCH] msvcrt: Add sincos to importlib.
+
+Fixes cross compilation with GCC 11, which may optimize a pair of sin(),
+cos() calls to a single sincos() call, which is not exported by any
+msvcrt version.
+--- a/dlls/msvcr100/Makefile.in
++++ b/dlls/msvcr100/Makefile.in
+@@ -36,2 +36,3 @@
+ 	scheduler.c \
++	sincos.c \
+ 	string.c \
+--- a/dlls/msvcr110/Makefile.in
++++ b/dlls/msvcr110/Makefile.in
+@@ -36,2 +36,3 @@
+ 	scheduler.c \
++	sincos.c \
+ 	string.c \
+--- a/dlls/msvcr120/Makefile.in
++++ b/dlls/msvcr120/Makefile.in
+@@ -36,2 +36,3 @@
+ 	scheduler.c \
++	sincos.c \
+ 	string.c \
+--- a/dlls/msvcr70/Makefile.in
++++ b/dlls/msvcr70/Makefile.in
+@@ -35,2 +35,3 @@
+ 	scanf.c \
++	sincos.c \
+ 	string.c \
+--- a/dlls/msvcr71/Makefile.in
++++ b/dlls/msvcr71/Makefile.in
+@@ -35,2 +35,3 @@
+ 	scanf.c \
++	sincos.c \
+ 	string.c \
+--- a/dlls/msvcr80/Makefile.in
++++ b/dlls/msvcr80/Makefile.in
+@@ -35,2 +35,3 @@
+ 	scanf.c \
++	sincos.c \
+ 	string.c \
+--- a/dlls/msvcr90/Makefile.in
++++ b/dlls/msvcr90/Makefile.in
+@@ -35,2 +35,3 @@
+ 	scanf.c \
++	sincos.c \
+ 	string.c \
+--- a/dlls/msvcrt/Makefile.in
++++ b/dlls/msvcrt/Makefile.in
+@@ -40,2 +40,3 @@
+ 	scheduler.c \
++	sincos.c \
+ 	string.c \
+--- a/dlls/msvcrt/sincos.c
++++ b/dlls/msvcrt/sincos.c
+@@ -0,0 +1,20 @@
++#if 0
++#pragma makedep implib
++#endif
++
++#include <math.h>
++
++/* GCC may optimize a pair of sin(), cos() calls to a single sincos() call,
++ * which is not exported by any msvcrt version. */
++
++void sincos(double x, double *s, double *c)
++{
++    *s = sin(x);
++    *c = cos(x);
++}
++
++void sincosf(float x, float *s, float *c)
++{
++    *s = sinf(x);
++    *c = cosf(x);
++}
+--- a/dlls/ucrtbase/Makefile.in
++++ b/dlls/ucrtbase/Makefile.in
+@@ -39,2 +39,3 @@
+ 	scanf.c \
++	sincos.c \
+ 	string.c \
