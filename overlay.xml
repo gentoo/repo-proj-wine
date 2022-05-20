@@ -3,7 +3,7 @@
 <repositories xmlns="" version="1.0">
 <repo quality="testing" status="official">
 	<name>wine</name>
-	<description>All supported Wine ebuilds from the Gentoo Wine Project</description>
+	<description>NOTE: This repo is no longer updated, ::gentoo has the latest changes. All previous Wine ebuilds from the Gentoo Wine Project</description>
 	<homepage>https://github.com/NP-Hardass/wine-overlay</homepage>
 	<owner type="project">
 		<email>wine@gentoo.org</email>
