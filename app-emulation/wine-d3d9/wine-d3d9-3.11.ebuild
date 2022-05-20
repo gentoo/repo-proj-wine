@@ -175,29 +175,6 @@ wine_compiler_check() {
 wine_build_environment_check() {
 	[[ ${MERGE_TYPE} = "binary" ]] && return 0
 
-	if use abi_x86_64; then
-		if tc-is-gcc && [[ $(gcc-major-version) -lt 4 || ( $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 4 ) ]]; then
-			eerror "You need gcc-4.4+ to compile 64-bit wine"
-			die
-		elif tc-is-clang && [[ $(clang-major-version) -lt 3 || ( $(clang-major-version) -eq 3 && $(clang-minor-version) -lt 8 ) ]]; then
-			eerror "You need clang-3.8+ to compile 64-bit wine"
-			die
-		fi
-	fi
-	if tc-is-gcc && [[ $(gcc-major-version) -eq 5 && $(gcc-minor-version) -le 3 ]]; then
-		ewarn "GCC-5.0-5.3 suffered from compiler bugs and are no longer supported by"
-		ewarn "Gentoo's Toolchain Team. If your ebuild fails the compiler checks in"
-		ewarn "the configure phase, either update your compiler or switch to <5.0 || >=5.4"
-	fi
-	if tc-is-gcc && [[ $(gcc-major-version) -eq 5 && $(gcc-minor-version) -eq 4 ]]; then
-		if has "-march=i686" ${CFLAGS} && ! has "-mtune=generic" ${CFLAGS}; then
-			ewarn "Compilation can hang with CFLAGS=\"-march=i686\".  You can temporarily work"
-			ewarn "around this by adding \"-mtune=generic\" to your CFLAGS for wine."
-			ewarn "See package.env in man 5 portage for more information on how to do this."
-			ewarn "See https://bugs.gentoo.org/show_bug.cgi?id=613128 for more details"
-		fi
-	fi
-
 	if use abi_x86_32 && use opencl && [[ "$(eselect opencl show 2> /dev/null)" == "intel" ]]; then
 		eerror "You cannot build wine with USE=opencl because intel-ocl-sdk is 64-bit only."
 		eerror "See https://bugs.gentoo.org/487864 for more details."
